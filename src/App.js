@@ -1,24 +1,54 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-// import Messages from './Messages';
-// import MessageInput from './MessageInput';
 
-// import "./App.css";
+
 
 function App() {
-  const [pws, setPws] = useState({
-    connected: false,
-    epoch: { value: false },
-  });
+	const Wx = ({data}) => {
 
-  const [st, setSt] = useState({
-    connected: false,
-  });
+		return (
+			<div>
+				{Object.keys(data).map(wxKey => {
+					
+					return (
+						<div key={wxKey + "div"}>
+							<p key={wxKey}>{data[wxKey].title}</p>
+							<p key={wxKey + "value"}>{data[wxKey].value}</p>
+						</div>
+					)
+				})}
+			</div>
+		)
+	}	
+  const [pws, setPws] = useState({});
+  const [pwsConnected, setPwsConnected] = useState(false);
 
+  const [st, setSt] = useState({});
+  const [stConnected, setStConnected] = useState(false);
   const [user, setUser] = useState("Ryan");
+  
+  const updatePws = (msg) => {
+  	 setPws(pws => ({
+  	 	...pws,
+  		...msg,
+  		})
+  	)
+  }
+  const updateSt = (msg) => {
+  	 setSt(st => ({
+  	 	...st,
+  		...msg,
+  		})
+  	)
+  }
 
   useEffect(() => {
-    const pwsSocket = io(process.env.REACT_APP_PWS_SOCKET_DOMAIN + "/pushSocket");
+
+    const pwsSocket = io(process.env.REACT_APP_PWS_SOCKET_DOMAIN + "/pwsSocket", {
+      forceNew: true,
+      path: "/pwsSocket",
+      transports: ["websocket", "polling"],
+    });
 
     const stSocket = io(process.env.REACT_APP_ST_SOCKET_DOMAIN + "/stSocket", {
       forceNew: true,
@@ -26,17 +56,18 @@ function App() {
       transports: ["websocket", "polling"],
     });
     
-console.log(`${JSON.stringify(process.env, null, 1)} process.env App.js`)
+
     stSocket.emit("getConnectionPacket", user);
     stSocket.on("connect", () => {
+    	setStConnected(true)
       console.log("connected to stSocket");
     });
+    stSocket.on("disconnect", () => {
+    	setStConnected(false)
+      console.log("disconnected from stSocket");
+    });
     stSocket.on("connectionPacket", (msg) => {
-      console.log("🚀 ~ file: App.js ~ line 32 ~ newStSocket.on ~ msg", msg);
-      setSt({
-        ...st,
-        ...msg,
-      });
+    	updateSt(msg);
     });
 
     pwsSocket.on("connectionError", (err) => {
@@ -44,25 +75,14 @@ console.log(`${JSON.stringify(process.env, null, 1)} process.env App.js`)
     });
     pwsSocket.on("connect", () => {
       console.log("connected to pwsSocket");
-      setPws({
-        ...pws,
-        connected: true,
-      });
+      setPwsConnected(true)
     });
     pwsSocket.on("disconnect", () => {
+      setPwsConnected(false)
       console.log("disconnected from pwsSocket");
     });
-    pwsSocket.on("rapidWind", (msg) => {
-      setPws({
-        ...pws,
-        ...msg,
-      });
-    });
-    pwsSocket.on("packetObject", (msg) => {
-      setPws({
-        ...pws,
-        ...msg,
-      });
+    pwsSocket.on("data", (msg) => {
+      updatePws(msg);
     });
 
     return () => {
@@ -73,7 +93,7 @@ console.log(`${JSON.stringify(process.env, null, 1)} process.env App.js`)
 
   return (
     <div className="App">
-      {pws.epoch.value ? pws.epoch.value : "not connected"}
+      {pwsConnected ? <Wx data={pws} />: "not connected"}
     </div>
   );
 }
