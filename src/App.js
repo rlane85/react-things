@@ -89,7 +89,7 @@ function App() {
       pwsSocket.close();
       stSocket.close();
     };
-  }, []);
+  }, [user]);
 
   return (
     <div className="App">
