@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
+import React from "react";
 
 import { SocketHandler } from "./components"
 
 function App() {
-
-
-
   return (
   	<SocketHandler />
-
   );
 }
 

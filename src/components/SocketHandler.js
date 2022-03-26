@@ -8,7 +8,7 @@ import {
 } from "./"
 
 export const SocketHandler = () => {
-	const [pws, setPws] = useState({});
+	const [pws, setPws] = useState(null);
 	const [pwsConnected, setPwsConnected] = useState(false);
 
 	const [st, setSt] = useState({});
@@ -43,10 +43,11 @@ export const SocketHandler = () => {
 		});
 
 
-		stSocket.emit("getConnectionPacket", user);
+
 		stSocket.on("connect", () => {
 			setStConnected(true)
-			console.log("connected to stSocket");
+		stSocket.emit("getConnectionPacket", user);
+			console.log("connected to stSocket, requesting connection packet");
 		});
 		stSocket.on("disconnect", () => {
 			setStConnected(false)
@@ -55,12 +56,13 @@ export const SocketHandler = () => {
 		stSocket.on("connectionPacket", (msg) => {
 			updateSt(msg);
 		});
-
+ 
 		pwsSocket.on("connectionError", (err) => {
 			console.log("🚀 ~ file: App.js ~ line 42 ~ pwsSocket.on ~ err", err);
 		});
 		pwsSocket.on("connect", () => {
 			console.log("connected to pwsSocket");
+			
 			setPwsConnected(true)
 		});
 		pwsSocket.on("disconnect", () => {
@@ -79,7 +81,7 @@ export const SocketHandler = () => {
 
 	return (
 		<div className="App">
-{pwsConnected ? <Weather data={pws} />: "not connected"}
+{pwsConnected ? <Weather data={pws} />: "...not connected"}
 </div>
 	)
 }
