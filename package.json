@@ -21,7 +21,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "patch": "npm version patch",
+    "minor": "npm version minor",
+    "major": "npm version major",
+    "buildDeploy": "npm run build && npm run deployPi",
+    "buildPatch": "npm run patch && npm run build && npm run deployPi",
+    "buildMinor": "npm run minor && npm run build && npm run deployPi",
+    "buildMajor": "npm run major && npm run build && npm run deployPi",
+    "deploy": "rsync -av --delete /home/ubuntu/react/things/build/ /var/www/st.mc-lane.com/"
   },
   "eslintConfig": {
     "extends": [
