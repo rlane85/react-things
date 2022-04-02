@@ -26,9 +26,9 @@
     "minor": "npm version minor",
     "major": "npm version major",
     "buildDeploy": "npm run build && npm run deployPi",
-    "buildPatch": "npm run patch && npm run build && npm run deployPi",
-    "buildMinor": "npm run minor && npm run build && npm run deployPi",
-    "buildMajor": "npm run major && npm run build && npm run deployPi",
+    "buildPatch": "npm run patch && npm run build && npm run deploy",
+    "buildMinor": "npm run minor && npm run build && npm run deploy",
+    "buildMajor": "npm run major && npm run build && npm run deploy",
     "deploy": "rsync -av --delete /home/ubuntu/react/things/build/ /var/www/st.mc-lane.com/"
   },
   "eslintConfig": {
