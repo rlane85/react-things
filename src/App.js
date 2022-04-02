@@ -1,11 +1,20 @@
-import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
-import { SocketHandler } from "./components"
-
-function App() {
+export default function App() {
   return (
-  	<SocketHandler />
+    <div>
+      <p>
+        <Link to="/">Home</Link>
+      </p>
+
+      <p>
+        <Link to="/st">SmartThings</Link>
+      </p>
+
+      <p>
+        <Link to="/pws">Personal Weather</Link>
+      </p>
+      <Outlet />
+    </div>
   );
 }
-
-export default App;
