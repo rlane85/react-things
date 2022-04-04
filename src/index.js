@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { SocketHandler } from "./main";
+import { AuthApp } from "./AuthApp";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <SocketHandler />
+      <AuthApp />
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById("root")
