@@ -1,3 +1,4 @@
+/*
 import { Link, Outlet } from "react-router-dom";
 import { DeviceRoutes } from "./smartThings/DeviceRoutes";
 export const SmartThings = ({ data }) => {
@@ -17,3 +18,4 @@ export const SmartThings = ({ data }) => {
     </div>
   );
 };
+*/

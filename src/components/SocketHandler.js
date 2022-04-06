@@ -1,3 +1,4 @@
+/*
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 import io from "socket.io-client";
@@ -97,3 +98,4 @@ export const SocketHandler = () => {
     </div>
   );
 };
+*/

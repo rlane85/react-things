@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
-import { Weather, SmartThings } from "./routes";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
@@ -12,15 +11,13 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
-
 import EventBus from "./common/EventBus";
 
 export const AuthApp = () => {
-  const [pws, setPws] = useState({pws: "Placeholder PWS"});
+
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
-
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -116,12 +113,12 @@ export const AuthApp = () => {
 
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<Home data={pws} />} />
-          <Route path="/home" element={<Home data={pws} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
-          <Route path="/user" element={<BoardUser/>} />
+          <Route path="/user" element={<BoardUser />} />
           <Route path="/mod" element={<BoardModerator/>} />
           <Route path="/admin" element={<BoardAdmin/>} />
         </Routes>

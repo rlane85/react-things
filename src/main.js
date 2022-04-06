@@ -7,15 +7,8 @@ import App from "./App";
 
 export const SocketHandler = () => {
   const [st, setSt] = useState({ devices: { a: {} } });
-  const [pws, setPws] = useState(false);
   const [user, setUser] = useState("Ryan");
 
-  const updatePws = (msg) => {
-    setPws((pws) => ({
-      ...pws,
-      ...msg,
-    }));
-  };
   const updateSt = (msg) => {
     setSt((st) => ({
       ...st,
@@ -24,15 +17,7 @@ export const SocketHandler = () => {
   };
 
   useEffect(() => {
-    const pwsSocket = io(
-      process.env.REACT_APP_PWS_SOCKET_DOMAIN + "/pwsSocket",
-      {
-        forceNew: true,
-        path: "/pwsSocket",
-        transports: ["websocket", "polling"],
-      }
-    );
-
+	  
     const stSocket = io(process.env.REACT_APP_ST_SOCKET_DOMAIN + "/stSocket", {
       forceNew: true,
       path: "/stSocket",
@@ -53,23 +38,8 @@ export const SocketHandler = () => {
     stSocket.on("event", (msg) => {
       updateSt(msg);
     });
-    pwsSocket.on("connectionError", (err) => {
-      console.log("🚀 ~ file: App.js ~ line 42 ~ pwsSocket.on ~ err", err);
-    });
-    pwsSocket.on("connect", () => {
-      console.log("connected to pwsSocket");
-    });
-
-    pwsSocket.on("disconnect", () => {
-      console.log("disconnected from pwsSocket");
-    });
-
-    pwsSocket.on("data", (msg) => {
-      updatePws(msg);
-    });
-
+	
     return () => {
-      pwsSocket.close();
       stSocket.close();
     };
   }, [user]);
@@ -89,7 +59,6 @@ export const SocketHandler = () => {
               );
             })}
           </Route>
-          <Route path="pws" element={<Weather data={pws} />} />
         </Route>
       </Routes>
     </div>

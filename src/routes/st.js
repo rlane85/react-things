@@ -1,16 +1,15 @@
-import { Link, Outlet } from "react-router-dom";
 
 export const SmartThings = ({ data }) => {
   const { devices } = data;
+	
   return (
     <div>
-      <Outlet />
-      {Object.keys(devices).map((deviceId) => {
+			{Object.keys(devices).map((deviceId) => {
         return (
           <div key={deviceId}>
-            <Link key={deviceId} to={"/st/" + deviceId}>
+            <button key={deviceId}>
               {devices[deviceId].name}
-            </Link>
+            </button>
           </div>
         );
       })}
