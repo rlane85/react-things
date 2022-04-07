@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import authHeader from "./auth-header";
 import { Weather, SmartThings } from "../routes"
 
-const API_URL = process.env.REACT_APP_AUTH_DOMAIN +  "/api/test/";
+const API_URL = process.env.REACT_APP_AUTH_DOMAIN +  "/api/";
 
 const PublicContent = () => {
   const [pws, setPws] = useState(false);
@@ -90,11 +90,11 @@ const UserContent = () => {
 };
 
 const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
+  return axios.get(API_URL + "test/mod", { headers: authHeader() });
 };
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
+  return axios.get(API_URL + "test/admin", { headers: authHeader() });
 };
 
 const UserService = {
