@@ -2,9 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import authHeader from "./auth-header";
-import { Weather, SmartThings } from "../routes"
+import { Weather } from "../routes";
 
-const API_URL = process.env.REACT_APP_AUTH_DOMAIN +  "/api/";
+const API_URL = process.env.REACT_APP_AUTH_DOMAIN + "/api/";
 
 const PublicContent = () => {
   const [pws, setPws] = useState(false);
@@ -14,7 +14,7 @@ const PublicContent = () => {
       ...pws,
       ...msg,
     }));
-	};
+  };
   useEffect(() => {
     const pwsSocket = io(
       process.env.REACT_APP_PWS_SOCKET_DOMAIN + "/pwsSocket",
@@ -23,7 +23,7 @@ const PublicContent = () => {
         path: "/pwsSocket",
         transports: ["websocket", "polling"],
       }
-	  );
+    );
     pwsSocket.on("connectionError", (err) => {
       console.log("🚀 ~ file: App.js ~ line 42 ~ pwsSocket.on ~ err", err);
     });
@@ -42,54 +42,17 @@ const PublicContent = () => {
     return () => {
       pwsSocket.close();
     };
-}, []);
+  }, []);
 
-	return <Weather data={pws} />
-
+  return <Weather data={pws} />;
 };
 
-const UserContent = () => {
-  const [st, setSt] = useState({ devices: { a: {} } });
-  const [user, setUser] = useState("Ryan");
-
-  const updateSt = (msg) => {
-    setSt((st) => ({
-      ...st,
-      ...msg,
-    }));
-  };
-
-  useEffect(() => {
-	  
-    const stSocket = io(process.env.REACT_APP_ST_SOCKET_DOMAIN + "/stSocket", {
-      forceNew: true,
-      path: "/stSocket",
-      transports: ["websocket", "polling"],
-    });
-
-    stSocket.on("connect", () => {
-      stSocket.emit("getConnectionPacket", user);
-      console.log("connected to stSocket, requesting connection packet");
-    });
-
-    stSocket.on("disconnect", () => {
-      console.log("disconnected from stSocket");
-    });
-    stSocket.on("connectionPacket", (msg) => {
-      updateSt(msg);
-    });
-    stSocket.on("event", (msg) => {
-      updateSt(msg);
-    });
-	
-    return () => {
-      stSocket.close();
-    };
-}, [user]);
-	return <SmartThings data={st} />
+const getUserContent = () => {
+  return axios.get(API_URL + "test/all", { headers: authHeader() });
 };
 
 const getModeratorBoard = () => {
+
   return axios.get(API_URL + "test/mod", { headers: authHeader() });
 };
 
@@ -99,7 +62,7 @@ const getAdminBoard = () => {
 
 const UserService = {
   PublicContent,
-  UserContent,
+  getUserContent,
   getModeratorBoard,
   getAdminBoard,
 };

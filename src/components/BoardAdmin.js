@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import UserService from "../services/user.service";
+import { StSocketService } from "../services/st-socket.service";
 import EventBus from "../common/EventBus";
 
 const BoardAdmin = () => {
@@ -9,7 +10,8 @@ const BoardAdmin = () => {
   useEffect(() => {
     UserService.getAdminBoard().then(
       (response) => {
-        setContent(response.data);
+		  //console.log(response)
+        setContent(<StSocketService user="rlan" />);
       },
       (error) => {
         const _content =
