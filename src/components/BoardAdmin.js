@@ -10,8 +10,8 @@ const BoardAdmin = () => {
   useEffect(() => {
     UserService.getAdminBoard().then(
       (response) => {
-		  //console.log(response)
-        setContent(<StSocketService user="rlan" />);
+		  const { data } = response;
+        setContent(<StSocketService userContent={data} />);
       },
       (error) => {
         const _content =

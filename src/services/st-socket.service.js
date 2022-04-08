@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { SmartThings } from "../routes";
 
-export const StSocketService = ({user}) => {
-	  const [st, setSt] = useState({ devices: { a: {} } });
+export const StSocketService = ({userContent}) => {
+	const [st, setSt] = useState({devices: {a: ""}, ...userContent});
 
   const updateSt = (msg) => {
     setSt((st) => ({
@@ -20,16 +20,18 @@ export const StSocketService = ({user}) => {
     });
 
     stSocket.on("connect", () => {
-      stSocket.emit("getConnectionPacket", user);
+      stSocket.emit("getConnectionPacket");
       console.log("connected to stSocket, requesting connection packet");
     });
 
     stSocket.on("disconnect", () => {
       console.log("disconnected from stSocket");
     });
+	
     stSocket.on("connectionPacket", (msg) => {
       updateSt(msg);
     });
+	
     stSocket.on("event", (msg) => {
 		console.log(msg)
       updateSt(msg);
@@ -38,6 +40,6 @@ export const StSocketService = ({user}) => {
     return () => {
       stSocket.close();
     };
-  }, [user]);
+  }, []);
   return <SmartThings data={st} />;
 }

@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import authHeader from "./auth-header";
+import AuthService from "./auth.service"
 import { Weather } from "../routes";
-
+const { getCurrentUser } = AuthService;
 const API_URL = process.env.REACT_APP_AUTH_DOMAIN + "/api/";
 
 const PublicContent = () => {
@@ -25,7 +26,7 @@ const PublicContent = () => {
       }
     );
     pwsSocket.on("connectionError", (err) => {
-      console.log("🚀 ~ file: App.js ~ line 42 ~ pwsSocket.on ~ err", err);
+      console.log(err);
     });
     pwsSocket.on("connect", () => {
       console.log("connected to pwsSocket");
@@ -57,7 +58,7 @@ const getModeratorBoard = () => {
 };
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + "test/admin", { headers: authHeader() });
+  return axios.get(API_URL + "test/admin?user=" + getCurrentUser().username, { headers: authHeader() });
 };
 
 const UserService = {
