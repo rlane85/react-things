@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { SmartThings } from "../routes";
+import update from "immutability-helper";
 
 export const StSocketService = ({ userContent }) => {
-  const [st, setSt] = useState({ devices: { a: "" }, ...userContent });
+  const [st, setSt] = useState({ ...userContent });
 
   const updateSt = (msg) => {
-    setSt((st) => ({
-      ...st,
-      ...msg,
-    }));
+    const deviceId = msg.id;
+    const attribute = Object.keys(msg.value)[0];
+    const value = msg.value[attribute];
+    const newSt = update(st, {
+      devices: { [deviceId]: { [attribute]: { $set: value } } },
+    });
+    setSt(newSt);
+  };
+  const handleConnectionPacket = (msg) => {
+    const newSt = update(st, {
+      devices: { $set: msg.devices },
+    });
+    return setSt(newSt);
   };
 
   useEffect(() => {
@@ -29,17 +39,18 @@ export const StSocketService = ({ userContent }) => {
     });
 
     stSocket.on("connectionPacket", (msg) => {
-      updateSt(msg);
+      handleConnectionPacket(msg);
+      console.log("%cst-socket.service.js line:46 st", "color: #007acc;", st);
     });
 
     stSocket.on("event", (msg) => {
-      console.log(msg);
       updateSt(msg);
+      console.log("%cst-socket.service.js line:51 st", "color: #007acc;", st);
     });
 
     return () => {
       stSocket.close();
     };
   }, []);
-  return <SmartThings data={st} />;
+  return st.devices ? <SmartThings data={st} /> : <p>Loading...</p>;
 };
