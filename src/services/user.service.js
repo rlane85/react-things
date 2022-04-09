@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import authHeader from "./auth-header";
-import AuthService from "./auth.service"
+import AuthService from "./auth.service";
 import { Weather } from "../routes";
 const { getCurrentUser } = AuthService;
 const API_URL = process.env.REACT_APP_AUTH_DOMAIN + "/api/";
@@ -49,16 +49,21 @@ const PublicContent = () => {
 };
 
 const getUserContent = () => {
-  return axios.get(API_URL + "test/all", { headers: authHeader() });
+  return axios.get(API_URL + "test/user?user=" + getCurrentUser().username, {
+    headers: authHeader(),
+  });
 };
 
 const getModeratorBoard = () => {
-
-  return axios.get(API_URL + "test/mod", { headers: authHeader() });
+  return axios.get(API_URL + "test/mod?user=" + getCurrentUser().username, {
+    headers: authHeader(),
+  });
 };
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + "test/admin?user=" + getCurrentUser().username, { headers: authHeader() });
+  return axios.get(API_URL + "test/admin?user=" + getCurrentUser().username, {
+    headers: authHeader(),
+  });
 };
 
 const UserService = {
