@@ -7,6 +7,13 @@ export const SmartThings = ({ data }) => {
         return (
           <div key={deviceId}>
             <button key={deviceId}>{devices[deviceId].name}</button>
+            <p key={deviceId + "value"}>
+              {JSON.stringify(
+                Object.values(devices[deviceId].attributes),
+                null,
+                1
+              )}
+            </p>
           </div>
         );
       })}
