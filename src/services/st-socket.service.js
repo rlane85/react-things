@@ -4,7 +4,7 @@ import { SmartThings } from "../components/SmartThings";
 import update from "immutability-helper";
 
 export const StSocketService = ({ userContent }) => {
-  const [st, setSt] = useState({ devices: {}, ...userContent });
+  const [st, setSt] = useState({ ...userContent });
 
   useEffect(() => {
     const stSocket = io(process.env.REACT_APP_ST_SOCKET_DOMAIN + "/stSocket", {

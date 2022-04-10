@@ -10,7 +10,7 @@ const BoardAdmin = () => {
   useEffect(() => {
     UserService.getAdminBoard().then(
       (response) => {
-		  const { data } = response;
+        const { data } = response;
         setContent(<StSocketService userContent={data} />);
       },
       (error) => {
@@ -32,9 +32,7 @@ const BoardAdmin = () => {
 
   return (
     <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
+      <header className="jumbotron">{content}</header>
     </div>
   );
 };
