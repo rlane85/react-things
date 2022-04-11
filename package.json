@@ -30,7 +30,7 @@
     "patch": "npm version patch",
     "minor": "npm version minor",
     "major": "npm version major",
-    "buildDeploy": "npm run build && npm run deployPi",
+    "buildDeploy": "npm run build && npm run deploy",
     "buildPatch": "npm run patch && npm run build && npm run deploy",
     "buildMinor": "npm run minor && npm run build && npm run deploy",
     "buildMajor": "npm run major && npm run build && npm run deploy",

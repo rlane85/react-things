@@ -1,13 +1,14 @@
-import { Device } from "./smartThings/Device";
+import { Panel } from "./Panel";
 export const SmartThings = ({ data }) => {
-  const { devices } = data;
+  const { panels, devices } = data;
 
-  return (
+
+  return (Object.keys(panels).length > 0) ? (
     <div>
-      {" "}
-      {Object.keys(devices).map((deviceId) => {
-        return <Device key={deviceId + "device"} device={devices[deviceId]} />;
+
+      {Object.keys(panels).map((panelId) => {
+        return <Panel key={panelId + "panel"} panel={panels[panelId]} devices={devices}/>;
       })}
     </div>
-  );
+  ) : (<p><strong>No panels found!</strong></p>);
 };

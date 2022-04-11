@@ -11,6 +11,7 @@ const BoardAdmin = () => {
     UserService.getAdminBoard().then(
       (response) => {
         const { data } = response;
+
         setContent(<StSocketService userContent={data} />);
       },
       (error) => {
