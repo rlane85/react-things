@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import authHeader from "./auth-header";
 import AuthService from "./auth.service";
-import { Weather } from "../routes";
+import { Weather } from "../components/weather";
 const { getCurrentUser } = AuthService;
 const API_URL = process.env.REACT_APP_AUTH_DOMAIN + "/api/";
 
