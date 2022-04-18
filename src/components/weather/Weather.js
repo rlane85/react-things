@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import PwsSocketContext from "../../context/pws/pws.socket.context.js";
+import { round } from "../../common"
 
 import convert from "convert-units";
-const round = (num) => {
-  return Math.round(num * 100) / 100;
-};
 
 export const Weather = () => {
   const { pws } = useContext(PwsSocketContext);

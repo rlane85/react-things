@@ -13,6 +13,7 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import { WeatherLite } from "./components/weather";
 import EventBus from "./common/EventBus";
 
 export const App = () => {
@@ -54,7 +55,7 @@ export const App = () => {
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
-                Home
+                <WeatherLite />
               </Link>
             </li>
 
