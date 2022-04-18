@@ -1,17 +1,10 @@
 import React from "react";
-
-import UserService from "../services/user.service";
-
-const Home = ({data}) => {
-
-  const { PublicContent } = UserService;
-
-  
+import { Weather } from "./weather";
+const Home = () => {
   return (
     <div className="container">
-      <header className="jumbotron">
-	  	<PublicContent />
-      </header>
+      <header className="jumbotron">Home</header>
+      <Weather />
     </div>
   );
 };
