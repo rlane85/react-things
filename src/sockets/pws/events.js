@@ -13,7 +13,6 @@ export const socketEvents = ({ setPwsValue }) => {
 
   pwsSocket.on("data", (msg) => {
     setPwsValue((state) => {
-		console.log(msg)
       return { pws: { ...state.pws, ...msg } };
     });
   });
