@@ -4,7 +4,7 @@ import UserService from "../services/user.service";
 import { StSocketService } from "../services/st-socket.service";
 import EventBus from "../common/EventBus";
 
-const BoardAdmin = () => {
+export const BoardAdmin = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -37,5 +37,3 @@ const BoardAdmin = () => {
     </div>
   );
 };
-
-export default BoardAdmin;

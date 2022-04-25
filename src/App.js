@@ -1,25 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import React, { useState, useEffect, useMemo } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import AuthService from "./services/auth.service";
 import PwsSocketProvider from "./context/pws";
 
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import Profile from "./components/Profile";
-import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
-import BoardAdmin from "./components/BoardAdmin";
+import {
+	ResponsiveAppBar, Login, Register, Home, Profile,
+	BoardUser, BoardModerator, BoardAdmin,
+} from "./components";
+
 import { WeatherLite } from "./components/weather";
 import EventBus from "./common/EventBus";
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, useMediaQuery, Typography } from '@mui/material';
 
 export const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+	
+	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+	
+
+	const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+		);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -27,6 +39,7 @@ export const App = () => {
       setCurrentUser(user);
       setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+
     }
 
     EventBus.on("logout", () => {
@@ -44,89 +57,78 @@ export const App = () => {
     setShowAdminBoard(false);
     setCurrentUser(undefined);
   };
+  
+	const pages = {
+		home: {
+			link: "/",
+			show: true,
+			display: <Typography textAlign="center">Our Things</Typography>,
+		},
+		wx: {
+			link: "/home",
+			display: <WeatherLite />,
+			show: true,
+		},
+		mod: {
+			link: "/mod",
+			display: <Typography textAlign="center">Moderator Board</Typography>,
+			show: showModeratorBoard,
+		},
+		admin: {
+			link: "/st",
+			display: <Typography textAlign="center">SmartThings</Typography>,
+			show: showAdminBoard,
+		}
+	}
+
+	const userPages = {
+		user: {
+			link: "/user",
+			show: Boolean(currentUser),
+			display: <Typography textAlign="center">User Content</Typography>,
+		},
+		profile: {
+			link: "/profile",
+			display: <Typography textAlign="center">Profile</Typography>,
+			show: Boolean(currentUser),
+		},
+		logout: {
+			link: "/login",
+			display: <Typography onClick={logOut} textAlign="center">Logout</Typography>,
+			show: Boolean(currentUser),
+		},
+		login: {
+			link: "/login",
+			display: <Typography textAlign="center">Login</Typography>,
+			show: !Boolean(currentUser),
+		},
+		register: {
+			link: "/register",
+			display: <Typography textAlign="center">Register</Typography>,
+			show: !Boolean(currentUser),
+		}
+	}
+	
 
   return (
-    <PwsSocketProvider>
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Our Things
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                <WeatherLite />
-              </Link>
-            </li>
+  	<ThemeProvider theme={theme}>
+		<CssBaseline />
+	    <PwsSocketProvider>
+		  <ResponsiveAppBar pages={pages} userPages={userPages} />
 
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-          </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-        </nav>
-
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
-          </Routes>
-        </div>
-      </div>
-    </PwsSocketProvider>
+	        <div>
+	          <Routes>
+	            <Route path="/" element={<Home />} />
+	            <Route path="/home" element={<Home />} />
+	            <Route path="/login" element={<Login />} />
+	            <Route path="/register" element={<Register />} />
+	            <Route path="/profile" element={<Profile />} />
+	            <Route path="/user" element={<BoardUser />} />
+	            <Route path="/mod" element={<BoardModerator />} />
+	            <Route path="/st" element={<BoardAdmin />} />
+	          </Routes>
+	        </div>
+	    </PwsSocketProvider>
+	  </ThemeProvider>
   );
 };

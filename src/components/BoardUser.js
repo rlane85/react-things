@@ -3,7 +3,7 @@ import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 const { getUserContent } = UserService;
 
-const BoardUser = () => {
+export const BoardUser = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -35,5 +35,3 @@ const BoardUser = () => {
     </div>
   );
 };
-
-export default BoardUser;

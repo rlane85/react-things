@@ -5,7 +5,7 @@ import { round } from "../../common"
 import convert from "convert-units";
 
 import styles from './weather.module.css'; 
-
+import { Typography } from '@mui/material';
 export const Weather = () => {
 	const { metric } = styles;
   const { pws } = useContext(PwsSocketContext);
@@ -29,15 +29,15 @@ export const Weather = () => {
             : convertValue;
 
         return (
-          <p key={title} >
-            {title}
+          <div key={title} >
+            <Typography>{title}</Typography>
             {" "}
 						<span className={metric}>
 							{realValue}
 						</span>
 						{" "}
 						{convertUnit}
-          </p>
+          </div>
         );
       })}
     </div>

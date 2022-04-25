@@ -1,6 +1,6 @@
 import React from "react";
 import { Weather } from "./weather";
-const Home = () => {
+export const Home = () => {
   return (
     <div className="container">
       <header className="jumbotron">Home</header>
@@ -9,4 +9,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+

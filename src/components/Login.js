@@ -16,7 +16,7 @@ const required = (value) => {
   }
 };
 
-const Login = () => {
+export const Login = () => {
   let navigate = useNavigate();
 
   const form = useRef();
@@ -125,4 +125,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+
