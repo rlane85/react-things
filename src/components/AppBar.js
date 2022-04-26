@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const appName = "Our Things";
 
-export const ResponsiveAppBar = ({ pages, userPages }) => {
+export const ResponsiveAppBar = ({ user, pages, userPages }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -107,7 +107,7 @@ export const ResponsiveAppBar = ({ pages, userPages }) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu

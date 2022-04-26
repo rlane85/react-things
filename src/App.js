@@ -109,12 +109,15 @@ export const App = () => {
 		}
 	}
 	
-
+  const username = Boolean(currentUser) ? currentUser.username : ""
   return (
   	<ThemeProvider theme={theme}>
 		<CssBaseline />
 	    <PwsSocketProvider>
-		  <ResponsiveAppBar pages={pages} userPages={userPages} />
+		  <ResponsiveAppBar
+				user={username}
+				pages={pages}
+				userPages={userPages} />
 
 	        <div>
 	          <Routes>
