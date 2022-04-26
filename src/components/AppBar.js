@@ -4,10 +4,12 @@ import {
 		AppBar, Box, Toolbar, IconButton,
 		Typography, Menu,
 		Container, Avatar,
-		Tooltip, MenuItem
+		Tooltip, MenuItem, Button
 	} 
 	from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';	
+import MenuIcon from '@mui/icons-material/Menu';
+
+const appName = "Our Things";
 
 export const ResponsiveAppBar = ({ pages, userPages }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,7 +40,7 @@ export const ResponsiveAppBar = ({ pages, userPages }) => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            Our Things
+            {appName}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -78,6 +80,28 @@ export const ResponsiveAppBar = ({ pages, userPages }) => {
                 	</MenuItem>
               	) : null })}
             </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+          >
+            {appName}
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {Object.keys(pages).map(pageKey => { 
+				const page = pages[pageKey]
+				return page.show ? (
+              <Link to={page.link} key={pageKey}>
+								<Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                	{page.display}
+              	</Button>
+							</Link>
+            ) : null })}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
