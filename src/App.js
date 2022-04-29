@@ -13,6 +13,8 @@ import {
   BoardUser,
   BoardModerator,
   BoardAdmin,
+	SignInWithGoogle,
+  SignUpWithGoogle
 } from "./components";
 
 import { WeatherLite } from "./components/weather";
@@ -127,6 +129,8 @@ export const App = () => {
 					pages={pages}
 					userPages={userPages} />
         <Container>
+				<SignUpWithGoogle />
+				<SignInWithGoogle />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />

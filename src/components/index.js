@@ -8,3 +8,4 @@ export * from "./Panel";
 export * from "./Profile";
 export * from "./Register";
 export * from "./SmartThings";
+export * from "./SignInWithGoogle";
