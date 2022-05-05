@@ -1,5 +1,6 @@
 import { Panel } from "./Panel";
 export const SmartThings = ({ data }) => {
+  console.log(data)
   const { panels, devices } = data;
 
 

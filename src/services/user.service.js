@@ -10,19 +10,19 @@ const getPublicContent = () => {
 };
 
 const getUserContent = () => {
-  return axios.get(API_URL + "test/user?user=" + getCurrentUser().username, {
+  return axios.get(API_URL + "test/user?user=" + getCurrentUser().id, {
     headers: authHeader(),
   });
 };
 
 const getModeratorBoard = () => {
-  return axios.get(API_URL + "test/mod?user=" + getCurrentUser().username, {
+  return axios.get(API_URL + "test/mod?user=" + getCurrentUser().id, {
     headers: authHeader(),
   });
 };
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + "test/admin?user=" + getCurrentUser().username, {
+  return axios.get(API_URL + "test/admin?user=" + getCurrentUser().id, {
     headers: authHeader(),
   });
 };

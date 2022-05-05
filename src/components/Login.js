@@ -5,6 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import AuthService from "../services/auth.service";
+import { GoogleAuth } from "./"
 
 const required = (value) => {
   if (!value) {
@@ -70,6 +71,7 @@ export const Login = () => {
 
   return (
     <div className="col-md-12">
+				<GoogleAuth />
       <div className="card card-container">
       
         <Form onSubmit={handleLogin} ref={form}>

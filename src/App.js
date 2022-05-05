@@ -13,8 +13,7 @@ import {
   BoardUser,
   BoardModerator,
   BoardAdmin,
-	SignInWithGoogle,
-  SignUpWithGoogle
+
 } from "./components";
 
 import { WeatherLite } from "./components/weather";
@@ -24,6 +23,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline, useMediaQuery, Typography, Container } from "@mui/material";
 
 export const App = () => {
+
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -40,6 +40,7 @@ export const App = () => {
     [prefersDarkMode]
   );
   useEffect(() => {
+
     const user = AuthService.getCurrentUser();
 
     if (user) {
@@ -119,7 +120,7 @@ export const App = () => {
     },
   };
 
-  const username = Boolean(currentUser) ? currentUser.username : "";
+  const username = Boolean(currentUser) ? currentUser.name : "";
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -129,8 +130,8 @@ export const App = () => {
 					pages={pages}
 					userPages={userPages} />
         <Container>
-				<SignUpWithGoogle />
-				<SignInWithGoogle />
+
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
