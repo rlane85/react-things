@@ -19,7 +19,10 @@ const required = (value) => {
 
 export const Login = () => {
   let navigate = useNavigate();
-
+  const navToProfile = () => {
+    navigate("/profile");
+    window.location.reload();
+  }
   const form = useRef();
   const checkBtn = useRef();
 
@@ -49,8 +52,7 @@ export const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/profile");
-          window.location.reload();
+          navToProfile()
         },
         (error) => {
           const resMessage =
@@ -71,7 +73,7 @@ export const Login = () => {
 
   return (
     <div className="col-md-12">
-				<GoogleAuth />
+				<GoogleAuth navToProfile={navToProfile} />
       <div className="card card-container">
       
         <Form onSubmit={handleLogin} ref={form}>
