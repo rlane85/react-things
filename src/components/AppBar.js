@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-		AppBar, Box, Toolbar, IconButton,
-		Typography, Menu,
-		Container, Avatar,
-		Tooltip, MenuItem, Button
-	} 
-	from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Tooltip,
+  MenuItem,
+  Button,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const appName = "Our Things";
 
@@ -29,7 +35,7 @@ export const ResponsiveAppBar = ({ user, pages, userPages }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-	
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -38,12 +44,12 @@ export const ResponsiveAppBar = ({ user, pages, userPages }) => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             {appName}
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -58,50 +64,57 @@ export const ResponsiveAppBar = ({ user, pages, userPages }) => {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
-              {Object.keys(pages).map(pageKey => { 
-				const page = pages[pageKey]
-				return page.show ? (
-                	<MenuItem key={pageKey} onClick={handleCloseNavMenu}>
-                  		<Link to={page.link}>{page.display}</Link>
-                	</MenuItem>
-              	) : null })}
+              {Object.keys(pages).map((pageKey) => {
+                const page = pages[pageKey];
+                return page.show ? (
+                  <MenuItem
+                    key={pageKey}
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={page.link}
+                  >
+                    {page.display}
+                  </MenuItem>
+                ) : null;
+              })}
             </Menu>
           </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
             {appName}
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {Object.keys(pages).map(pageKey => { 
-				const page = pages[pageKey]
-				return page.show ? (
-              <Link to={page.link} key={pageKey}>
-								<Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                	{page.display}
-              	</Button>
-							</Link>
-            ) : null })}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {Object.keys(pages).map((pageKey) => {
+              const page = pages[pageKey];
+              return page.show ? (
+                <Link to={page.link} key={pageKey}>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page.display}
+                  </Button>
+                </Link>
+              ) : null;
+            })}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -111,30 +124,35 @@ export const ResponsiveAppBar = ({ user, pages, userPages }) => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {Object.keys(userPages).map((userPageKey) => { 
-								const userPage = userPages[userPageKey]
-								return userPage.show ? (
-                <MenuItem key={userPageKey} onClick={handleCloseUserMenu}>
-								<Link to={userPage.link}>
-									{userPage.display}
-								</Link>
-                </MenuItem>
-              ) : null })}
+              {Object.keys(userPages).map((userPageKey) => {
+                const userPage = userPages[userPageKey];
+                return userPage.show ? (
+                  <MenuItem
+                    key={userPageKey}
+                    onClick={handleCloseUserMenu}
+                    component={Link}
+                    to={userPage.link}
+                  >
+                    {userPage.display}
+                    {/* <Link to={userPage.link}>{userPage.display}</Link> */}
+                  </MenuItem>
+                ) : null;
+              })}
             </Menu>
           </Box>
         </Toolbar>
@@ -142,4 +160,3 @@ export const ResponsiveAppBar = ({ user, pages, userPages }) => {
     </AppBar>
   );
 };
-
