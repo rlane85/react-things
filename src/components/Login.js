@@ -26,14 +26,14 @@ export const Login = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    const name = e.target.value;
+    setName(name);
   };
 
   const onChangePassword = (e) => {
@@ -50,7 +50,7 @@ export const Login = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(username, password).then(
+      AuthService.login(name, password).then(
         () => {
           navToProfile()
         },
@@ -78,12 +78,12 @@ export const Login = () => {
       
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="name">Username</label>
             <Input
               type="text"
               className="form-control"
-              name="username"
-              value={username}
+              name="name"
+              value={name}
               onChange={onChangeUsername}
               validations={[required]}
             />

@@ -30,7 +30,7 @@ const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        The name must be between 3 and 20 characters.
       </div>
     );
   }
@@ -50,15 +50,15 @@ export const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    const name = e.target.value;
+    setName(name);
   };
 
   const onChangeEmail = (e) => {
@@ -80,7 +80,7 @@ export const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password).then(
+      AuthService.register(name, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -113,12 +113,12 @@ export const Register = () => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="name">Username</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="username"
-                  value={username}
+                  name="name"
+                  value={name}
                   onChange={onChangeUsername}
                   validations={[required, vusername]}
                 />
