@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import UserService from "../services/user.service";
-import { StSocketService } from "../services/st-socket.service";
+import StSocketProvider from "../context/smartthings";
 import EventBus from "../common/EventBus";
+import { SmartThings } from "./SmartThings";
 
 export const BoardAdmin = () => {
   const [content, setContent] = useState("");
@@ -12,7 +13,11 @@ export const BoardAdmin = () => {
       (response) => {
         const { data } = response;
 
-        setContent(<StSocketService userContent={data} />);
+        setContent(
+          <StSocketProvider>
+            <SmartThings data={data} />
+          </StSocketProvider>
+        );
       },
       (error) => {
         const _content =
