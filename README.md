@@ -1,6 +1,10 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Heavily influenced from other sources for socket.io context
+
+https://alexboots.medium.com/using-react-context-with-socket-io-3b7205c86a6d
+
+# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
