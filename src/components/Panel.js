@@ -1,13 +1,16 @@
 import { Device } from "./smartThings";
+import { Box, Grid, Typography } from "@mui/material";
 
 export const Panel = ({ panel, devices }) => {
   const { tiles } = panel;
   return (
-    <div>
-      <h3>{panel.label}</h3>
-      {tiles.map((tileId) => {
-        return <Device key={tileId} device={devices[tileId]} />;
-      })}
-    </div>
+    <Box>
+      <Typography variant={"h6"}>{panel.label}</Typography>
+      <Grid container>
+        {tiles.map((tileId) => {
+          return <Device key={tileId} device={devices[tileId]} />;
+        })}
+      </Grid>
+    </Box>
   );
 };
