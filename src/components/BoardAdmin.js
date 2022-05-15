@@ -36,9 +36,5 @@ export const BoardAdmin = () => {
     );
   }, []);
 
-  return (
-    <div className="container">
-      <header className="jumbotron">{content}</header>
-    </div>
-  );
+  return content;
 };
