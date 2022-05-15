@@ -1,17 +1,15 @@
 import { useContext } from "react";
 import StSocketContext from "../context/smartthings/st.socket.context.js";
-
+import { Box, Skeleton, Stack } from "@mui/material";
 import { Panel } from "./Panel";
 export const SmartThings = ({ data }) => {
-  const { devices } = useContext(StSocketContext);
-  const testId = "7ca8fc07-9772-43b5-b4dd-38adcae516c1";
-  // console.log(data.devices[testId]);
+  const { devices, connected } = useContext(StSocketContext);
+
   const { panels } = data;
-  // console.log("%cSmartThings.js line:10 devices", "color: #007acc;", devices);
 
   if (devices) {
-    return Object.keys(panels).length > 0 ? (
-      <div>
+    return connected ? (
+      <Box>
         {Object.keys(panels).map((panelId) => {
           return (
             <Panel
@@ -21,11 +19,15 @@ export const SmartThings = ({ data }) => {
             />
           );
         })}
-      </div>
+      </Box>
     ) : (
-      <p>
-        <strong>No panels found!</strong>
-      </p>
+      <Stack>
+        <Skeleton variant={"text"} />
+        <Skeleton variant={"text"} />
+        <Skeleton variant={"text"} />
+        <Skeleton variant={"text"} />
+        <Skeleton variant={"text"} />
+      </Stack>
     );
   } else return null;
 };
