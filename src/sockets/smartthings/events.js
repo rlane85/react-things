@@ -1,7 +1,7 @@
 import { stSocket } from "./index";
 import update from "immutability-helper";
 
-export const socketEvents = ({ setStValue }) => {
+export const socketEvents = (setStValue) => {
   stSocket.on("connect", () => {
     stSocket.emit("getConnectionPacket");
     setStValue((prevSt) => {
@@ -23,13 +23,13 @@ export const socketEvents = ({ setStValue }) => {
     });
   });
   stSocket.on("ack", (msg) => {
-    const { deviceId, capability } = msg;
+    const { deviceId, attribute } = msg;
     console.log("ack received", msg);
     setStValue((prevSt) => {
       const newValue = update(prevSt, {
         devices: {
           [deviceId]: {
-            attributes: { [capability]: { awaitingReply: { $set: true } } },
+            attributes: { [attribute]: { awaitingReply: { $set: true } } },
           },
         },
       });
