@@ -1,5 +1,4 @@
 import {
-  Box,
   Grid,
   CircularProgress,
   Card,
@@ -7,8 +6,9 @@ import {
   CardActions,
   Typography,
 } from "@mui/material";
+
 import { orange } from "@mui/material/colors";
-import { Actuator, Dimmer } from "./deviceTypes";
+import { Actuator, Dimmer, Colorful } from "./deviceTypes";
 export const Device = ({ device }) => {
   const loaderColor = orange;
   const { deviceId, label, attributes } = device;
@@ -79,6 +79,36 @@ export const Device = ({ device }) => {
           </Grid>
         );
         break;
+      case "hue":
+        actuators.push(
+          <Grid
+            item
+            key={attributeName + deviceId}
+            sx={{ m: 3, position: "relative" }}
+            xs={12}
+          >
+            <Colorful
+              value={value}
+              id={deviceId}
+              attribute={"level"}
+              awaitingReply={awaitingReply}
+            />
+            {awaitingReply && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: loaderColor[500],
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                }}
+              />
+            )}
+          </Grid>
+        );
+        break;
       default:
         if (typeof value !== "object") {
           nonActuators.push(
@@ -90,6 +120,7 @@ export const Device = ({ device }) => {
         }
         break;
     }
+    return null;
   });
   return (
     <Grid item key={"root" + deviceId}>
