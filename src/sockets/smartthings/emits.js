@@ -1,9 +1,9 @@
 import { stSocket } from "./index";
-export const deviceCommand = (deviceId, capability, command, args) => {
+export const deviceCommand = (deviceId, attribute, args) => {
   stSocket.emit("deviceCommand", {
     deviceId: deviceId,
-    capability: capability,
-    command: command,
+    attribute: attribute,
+
     args: args,
   });
 };
