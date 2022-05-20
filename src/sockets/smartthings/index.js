@@ -5,15 +5,14 @@ export const stSocket = io(
   process.env.REACT_APP_ST_SOCKET_DOMAIN + "/stSocket",
   {
     path: "/stSocket",
+    autoConnect: false,
     transports: ["websocket", "polling"],
   }
 );
 export const initSockets = (setStValue, connected) => {
   socketEvents(setStValue);
   if (!connected) {
-    // console.log("%cindex.js line:14 connected", "color: #007acc;", connected);
+    console.log("connecting to stSocket...");
     stSocket.connect();
   }
-
-  // console.log(stSocket);
 };

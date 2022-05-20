@@ -10,7 +10,7 @@ export const socketEvents = (setStValue) => {
       });
       return newValue;
     });
-    console.log("connected to stSocket, requesting connection packet");
+    console.log("...connected to stSocket, requesting connection packet");
   });
 
   stSocket.on("disconnect", () => {
@@ -38,6 +38,7 @@ export const socketEvents = (setStValue) => {
   });
 
   stSocket.on("connectionPacket", (msg) => {
+    console.log("connectionPacket received", msg);
     setStValue((prevSt) => {
       const newValue = update(prevSt, { devices: { $set: msg.devices } });
       return newValue;
