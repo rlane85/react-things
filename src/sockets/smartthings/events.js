@@ -3,14 +3,13 @@ import update from "immutability-helper";
 
 export const socketEvents = (setStValue) => {
   stSocket.on("connect", () => {
-    stSocket.emit("getConnectionPacket");
     setStValue((prevSt) => {
       const newValue = update(prevSt, {
         connected: { $set: true },
       });
       return newValue;
     });
-    console.log("...connected to stSocket, requesting connection packet");
+    console.log("...connected to stSocket");
   });
 
   stSocket.on("disconnect", () => {
