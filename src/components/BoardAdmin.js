@@ -6,7 +6,7 @@ import EventBus from "../common/EventBus";
 import { SmartThings } from "./SmartThings";
 
 export const BoardAdmin = () => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(null);
 
   useEffect(() => {
     UserService.getAdminBoard().then(
